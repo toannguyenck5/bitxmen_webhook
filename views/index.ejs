@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebhookTest</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <pre id="test"></pre>
+    <script>
+        $(document).ready(function () {
+            var test = $("#test")
+            var x = <%-JSON.stringify(data)%>
+            console.log(x)
+            test.html(JSON.stringify(x, undefined, 2))
+
+            var socket = io("https://webhookbitxmen.herokuapp.com/")
+            // var socket = io("https://webhooktoan.herokuapp.com")
+            //var socket = io("http://localhost:3000")
+            socket.on("SEND_POST", function (data) {
+                test = document.getElementById("test")
+                test.innerHTML = JSON.stringify(data, undefined, 2)
+                console.log(data)
+            })
+        })
+    </script>
+</body>
+
+
+</html>
